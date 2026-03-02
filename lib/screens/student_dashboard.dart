@@ -789,15 +789,15 @@ class _StudentDashboardState extends State<StudentDashboard> {
   // Calculate dynamic header height based on screen width
   double _calculateHeaderHeight(double screenWidth) {
     if (screenWidth < 400) {
-      return 200.0; // Extra small screens
+      return 140.0; // Extra small screens - reduced from 200
     } else if (screenWidth < 600) {
-      return 180.0; // Small screens
+      return 130.0; // Small screens - reduced from 180
     } else if (screenWidth < 800) {
-      return 165.0; // Medium screens
+      return 125.0; // Medium screens - reduced from 165
     } else if (screenWidth < 1200) {
-      return 140.0; // Large screens
+      return 120.0; // Large screens - reduced from 140
     } else {
-      return 125.0; // Extra large screens
+      return 115.0; // Extra large screens - reduced from 125
     }
   }
 }

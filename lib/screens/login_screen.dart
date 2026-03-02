@@ -117,325 +117,242 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: SafeArea(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  // College Banner
-                  Container(
-                    width: double.infinity,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.95),
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.school,
-                            size: 40,
-                            color: Color(0xFF667eea),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height - 
+                           MediaQuery.of(context).padding.top - 
+                           MediaQuery.of(context).padding.bottom,
+              ),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // College Banner
+                      Container(
+                        width: double.infinity,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.95),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
                           ),
-                          SizedBox(height: 10),
-                          Text(
-                            'COLLEGE PORTAL',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF667eea),
-                            ),
-                          ),
-                          Text(
-                            'Complete Management System',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Color(0xFF764ba2),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 40),
-                  
-                  // Login Card
-                  Container(
-                    padding: const EdgeInsets.all(30),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.95),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
                         ),
-                      ],
-                    ),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Login',
-                            style: GoogleFonts.inter(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                              color: const Color(0xFF667eea),
-                            ),
-                          ),
-                          const SizedBox(height: 30),
-                          
-                          // Role Selection
-                          Text(
-                            'Login As',
-                            style: GoogleFonts.inter(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade300),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: _selectedRole,
-                                isExpanded: true,
-                                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                                items: const [
-                                  DropdownMenuItem(value: 'student', child: Text('Student')),
-                                  DropdownMenuItem(value: 'faculty', child: Text('Faculty')),
-                                  DropdownMenuItem(value: 'principal', child: Text('Principal')),
-                                  DropdownMenuItem(value: 'placement', child: Text('Placement Officer')),
-                                ],
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedRole = value!;
-                                  });
-                                },
+                        child: const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.school,
+                                size: 40,
+                                color: Color(0xFF667eea),
                               ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          
-                          // Username Field
-                          Text(
-                            'Username',
-                            style: GoogleFonts.inter(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            controller: _usernameController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter your username',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
+                              SizedBox(height: 10),
+                              Text(
+                                'COLLEGE PORTAL',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF667eea),
+                                ),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 12,
+                              Text(
+                                'Complete Management System',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF764ba2),
+                                ),
                               ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your username';
-                              }
-                              return null;
-                            },
+                            ],
                           ),
-                          const SizedBox(height: 20),
-                          
-                          // Password Field
-                          Text(
-                            'Password',
-                            style: GoogleFonts.inter(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black87,
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 15),
+                      
+                      // Login Card
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.95),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.1),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            controller: _passwordController,
-                            obscureText: _obscurePassword,
-                            decoration: InputDecoration(
-                              hintText: 'Enter your password',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 12,
-                              ),
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _obscurePassword = !_obscurePassword;
-                                  });
-                                },
-                                icon: Icon(
-                                  _obscurePassword 
-                                      ? Icons.visibility 
-                                      : Icons.visibility_off,
+                          ],
+                        ),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Login',
+                                style: GoogleFonts.inter(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
                                   color: const Color(0xFF667eea),
                                 ),
                               ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 30),
-                          
-                          // Login Button
-                          SizedBox(
-                            width: double.infinity,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: _isLoading ? null : _login,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF667eea),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: _isLoading
-                                  ? const CircularProgressIndicator(
-                                      color: Colors.white,
-                                    )
-                                  : Text(
-                                      'Sign In',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          
-                          // Reset Database Button (Debug)
-                          SizedBox(
-                            width: double.infinity,
-                            height: 40,
-                            child: OutlinedButton(
-                              onPressed: () async {
-                                await DatabaseService.resetDatabase();
-                                if (mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Database reset successfully',
-                                        style: GoogleFonts.inter(),
-                                      ),
-                                      backgroundColor: Colors.green,
-                                    ),
-                                  );
-                                }
-                              },
-                              style: OutlinedButton.styleFrom(
-                                side: const BorderSide(color: Colors.orange),
-                                foregroundColor: Colors.orange,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Text(
-                                'Reset Database (Debug)',
+                              const SizedBox(height: 25),
+                              
+                              // Role Selection
+                              Text(
+                                'Login As',
                                 style: GoogleFonts.inter(
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
+                                  color: Colors.black87,
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 30),
-                  
-                  // Demo Credentials
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Demo Credentials',
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xFF667eea),
+                              const SizedBox(height: 8),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey.shade300),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    value: _selectedRole,
+                                    isExpanded: true,
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                                    items: const [
+                                      DropdownMenuItem(value: 'student', child: Text('Student')),
+                                      DropdownMenuItem(value: 'faculty', child: Text('Faculty')),
+                                      DropdownMenuItem(value: 'principal', child: Text('Principal')),
+                                      DropdownMenuItem(value: 'placement', child: Text('Placement Officer')),
+                                    ],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedRole = value!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                              
+                              // Username Field
+                              Text(
+                                'Username',
+                                style: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              TextFormField(
+                                controller: _usernameController,
+                                decoration: InputDecoration(
+                                  hintText: 'Enter your username',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                    vertical: 12,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your username';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              
+                              // Password Field
+                              Text(
+                                'Password',
+                                style: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              TextFormField(
+                                controller: _passwordController,
+                                obscureText: _obscurePassword,
+                                decoration: InputDecoration(
+                                  hintText: 'Enter your password',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                    vertical: 12,
+                                  ),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscurePassword = !_obscurePassword;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      _obscurePassword 
+                                          ? Icons.visibility 
+                                          : Icons.visibility_off,
+                                      color: const Color(0xFF667eea),
+                                    ),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your password';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 25),
+                              
+                              // Login Button
+                              SizedBox(
+                                width: double.infinity,
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: _isLoading ? null : _login,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF667eea),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  child: _isLoading
+                                      ? const CircularProgressIndicator(
+                                          color: Colors.white,
+                                        )
+                                      : Text(
+                                          'Sign In',
+                                          style: GoogleFonts.inter(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        _buildCredentialRow('Student', '23KT1A0596', 'password123'),
-                        _buildCredentialRow('Faculty', 'faculty001', 'faculty123'),
-                        _buildCredentialRow('Principal', 'principal', 'admin123'),
-                        _buildCredentialRow('Placement', 'placement', 'place123'),
-                      ],
-                    ),
+                      ),
+                      
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildCredentialRow(String role, String username, String password) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 80,
-            child: Text(
-              '$role:',
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              '$username / $password',
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                color: Colors.black54,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
