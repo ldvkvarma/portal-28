@@ -14,26 +14,16 @@ class DatabaseService {
   static const String _certificatesKey = 'certificates';
   static const String _jobsKey = 'jobs';
   static const String _notificationsKey = 'notifications';
+  static const String _subjectsKey = 'subjects';
+  static const String _timetableKey = 'timetable';
+  static const String _internalMarksKey = 'internalMarks';
 
   // Initialize database with demo data
   static Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
-    print('Database: Checking initialization...');
-    print('Database: Users key exists: ${prefs.containsKey(_usersKey)}');
     
     if (!prefs.containsKey(_usersKey)) {
-      print('Database: Initializing demo data...');
       await _insertDemoData();
-      print('Database: Demo data initialized');
-    } else {
-      print('Database: Already initialized');
-      // Debug: Show existing users
-      final usersJson = prefs.getString(_usersKey) ?? '[]';
-      final users = jsonDecode(usersJson) as List;
-      print('Database: Existing users: ${users.length}');
-      for (var user in users) {
-        print('  - ${user['username']} (${user['userType']})');
-      }
     }
   }
 
@@ -65,19 +55,6 @@ class DatabaseService {
         'createdAt': DateTime.now().toIso8601String(),
       },
       {
-        'id': 'faculty1',
-        'username': 'faculty001',
-        'password': 'faculty123',
-        'userType': 'faculty',
-        'name': 'Dr. John Smith',
-        'email': 'john.smith@college.edu',
-        'phone': '+91 98765 43212',
-        'department': 'CSE',
-        'designation': 'Associate Professor',
-        'isActive': true,
-        'createdAt': DateTime.now().toIso8601String(),
-      },
-      {
         'id': 'principal1',
         'username': 'principal',
         'password': 'admin123',
@@ -96,6 +73,104 @@ class DatabaseService {
         'name': 'Placement Officer',
         'email': 'placement@college.edu',
         'phone': '+91 98765 43214',
+        'isActive': true,
+        'createdAt': DateTime.now().toIso8601String(),
+      },
+      {
+        'id': 'faculty1',
+        'username': 'hod001',
+        'password': 'faculty123',
+        'userType': 'faculty',
+        'name': 'Dr. Ramesh Kumar',
+        'email': 'ramesh.kumar@college.edu',
+        'phone': '+91 98765 43212',
+        'department': 'CSE',
+        'designation': 'Professor & HoD',
+        'role': 'hod',
+        'isActive': true,
+        'createdAt': DateTime.now().toIso8601String(),
+      },
+      {
+        'id': 'faculty2',
+        'username': 'faculty002',
+        'password': 'faculty123',
+        'userType': 'faculty',
+        'name': 'Dr. Sarah Johnson',
+        'email': 'sarah.johnson@college.edu',
+        'phone': '+91 98765 43213',
+        'department': 'CSE',
+        'designation': 'Associate Professor',
+        'role': 'normal',
+        'isActive': true,
+        'createdAt': DateTime.now().toIso8601String(),
+      },
+      {
+        'id': 'faculty3',
+        'username': 'faculty003',
+        'password': 'faculty123',
+        'userType': 'faculty',
+        'name': 'Dr. Michael Chen',
+        'email': 'michael.chen@college.edu',
+        'phone': '+91 98765 43214',
+        'department': 'CSE',
+        'designation': 'Assistant Professor',
+        'role': 'normal',
+        'isActive': true,
+        'createdAt': DateTime.now().toIso8601String(),
+      },
+      {
+        'id': 'faculty4',
+        'username': 'faculty004',
+        'password': 'faculty123',
+        'userType': 'faculty',
+        'name': 'Dr. Emily Williams',
+        'email': 'emily.williams@college.edu',
+        'phone': '+91 98765 43215',
+        'department': 'CSE',
+        'designation': 'Assistant Professor',
+        'role': 'normal',
+        'isActive': true,
+        'createdAt': DateTime.now().toIso8601String(),
+      },
+      {
+        'id': 'faculty5',
+        'username': 'faculty005',
+        'password': 'faculty123',
+        'userType': 'faculty',
+        'name': 'Dr. David Brown',
+        'email': 'david.brown@college.edu',
+        'phone': '+91 98765 43216',
+        'department': 'CSE',
+        'designation': 'Lecturer',
+        'role': 'normal',
+        'isActive': true,
+        'createdAt': DateTime.now().toIso8601String(),
+      },
+      {
+        'id': 'faculty6',
+        'username': 'faculty006',
+        'password': 'faculty123',
+        'userType': 'faculty',
+        'name': 'Dr. Lisa Anderson',
+        'email': 'lisa.anderson@college.edu',
+        'phone': '+91 98765 43217',
+        'department': 'CSE',
+        'designation': 'Lecturer',
+        'role': 'normal',
+        'isActive': true,
+        'createdAt': DateTime.now().toIso8601String(),
+      },
+      {
+        'id': 'faculty7',
+        'username': 'faculty007',
+        'password': 'faculty123',
+        'userType': 'faculty',
+        'name': 'Dr. James Wilson',
+        'email': 'james.wilson@college.edu',
+        'phone': '+91 98765 43218',
+        'department': 'CSE',
+        'designation': 'Lecturer',
+        'role': 'normal',
         'isActive': true,
         'createdAt': DateTime.now().toIso8601String(),
       },
@@ -414,6 +489,22 @@ class DatabaseService {
     }
   }
 
+  static Future<List<Map<String, dynamic>>> getAllFaculty() async {
+    final prefs = await SharedPreferences.getInstance();
+    final facultyJson = prefs.getString(_facultyKey) ?? '[]';
+    final faculty = jsonDecode(facultyJson) as List;
+    
+    return faculty.cast<Map<String, dynamic>>().toList();
+  }
+
+  static Future<List<Map<String, dynamic>>> getAllStudents() async {
+    final prefs = await SharedPreferences.getInstance();
+    final studentsJson = prefs.getString(_studentsKey) ?? '[]';
+    final students = jsonDecode(studentsJson) as List;
+    
+    return students.cast<Map<String, dynamic>>().toList();
+  }
+
   // Attendance Methods
   static Future<List<Map<String, dynamic>>> getAttendance(String studentId) async {
     final prefs = await SharedPreferences.getInstance();
@@ -614,7 +705,155 @@ class DatabaseService {
     await prefs.remove(_certificatesKey);
     await prefs.remove(_jobsKey);
     await prefs.remove(_notificationsKey);
+    await prefs.remove(_subjectsKey);
+    await prefs.remove(_timetableKey);
+    await prefs.remove(_internalMarksKey);
     print('Database: All data cleared');
+  }
+
+  // Subjects Methods
+  static Future<List<Map<String, dynamic>>> getSubjects() async {
+    final prefs = await SharedPreferences.getInstance();
+    final subjectsJson = prefs.getString(_subjectsKey) ?? '[]';
+    final subjects = jsonDecode(subjectsJson) as List;
+    
+    return subjects
+        .where((subject) => subject['isActive'] == true)
+        .cast<Map<String, dynamic>>()
+        .toList();
+  }
+
+  static Future<bool> addSubject(Map<String, dynamic> subjectData) async {
+    final prefs = await SharedPreferences.getInstance();
+    final subjectsJson = prefs.getString(_subjectsKey) ?? '[]';
+    final subjects = jsonDecode(subjectsJson) as List;
+    
+    subjects.add({
+      ...subjectData,
+      'id': 'sub${DateTime.now().millisecondsSinceEpoch}',
+      'isActive': true,
+      'createdAt': DateTime.now().toIso8601String(),
+    });
+    
+    await prefs.setString(_subjectsKey, jsonEncode(subjects));
+    return true;
+  }
+
+  // Timetable Methods
+  static Future<List<Map<String, dynamic>>> getTimetable() async {
+    final prefs = await SharedPreferences.getInstance();
+    final timetableJson = prefs.getString(_timetableKey) ?? '[]';
+    final timetable = jsonDecode(timetableJson) as List;
+    
+    return timetable.cast<Map<String, dynamic>>().toList();
+  }
+
+  static Future<bool> updateTimetable(String timetableId, Map<String, dynamic> timetableData) async {
+    final prefs = await SharedPreferences.getInstance();
+    final timetableJson = prefs.getString(_timetableKey) ?? '[]';
+    final timetable = jsonDecode(timetableJson) as List;
+    
+    try {
+      final timetableIndex = timetable.indexWhere((tt) => tt['id'] == timetableId);
+      if (timetableIndex != -1) {
+        timetable[timetableIndex] = {
+          ...timetableData,
+          'id': timetableId,
+          'updatedAt': DateTime.now().toIso8601String(),
+        };
+        await prefs.setString(_timetableKey, jsonEncode(timetable));
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
+    return false;
+  }
+
+  static Future<bool> addTimetable(Map<String, dynamic> timetableData) async {
+    final prefs = await SharedPreferences.getInstance();
+    final timetableJson = prefs.getString(_timetableKey) ?? '[]';
+    final timetable = jsonDecode(timetableJson) as List;
+    
+    timetable.add({
+      ...timetableData,
+      'createdAt': DateTime.now().toIso8601String(),
+    });
+    
+    await prefs.setString(_timetableKey, jsonEncode(timetable));
+    return true;
+  }
+
+  // Internal Marks Methods
+  static Future<List<Map<String, dynamic>>> getInternalMarks(String studentId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final internalMarksJson = prefs.getString(_internalMarksKey) ?? '[]';
+    final internalMarks = jsonDecode(internalMarksJson) as List;
+    
+    return internalMarks
+        .where((mark) => mark['studentId'] == studentId)
+        .cast<Map<String, dynamic>>()
+        .toList();
+  }
+
+  static Future<bool> addInternalMarks(Map<String, dynamic> marksData) async {
+    final prefs = await SharedPreferences.getInstance();
+    final internalMarksJson = prefs.getString(_internalMarksKey) ?? '[]';
+    final internalMarks = jsonDecode(internalMarksJson) as List;
+    
+    internalMarks.add({
+      ...marksData,
+      'id': 'im${DateTime.now().millisecondsSinceEpoch}',
+      'isLocked': false,
+      'createdAt': DateTime.now().toIso8601String(),
+    });
+    
+    await prefs.setString(_internalMarksKey, jsonEncode(internalMarks));
+    return true;
+  }
+
+  static Future<bool> lockInternalMarks(String marksId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final internalMarksJson = prefs.getString(_internalMarksKey) ?? '[]';
+    final internalMarks = jsonDecode(internalMarksJson) as List;
+    
+    try {
+      final marksIndex = internalMarks.indexWhere((mark) => mark['id'] == marksId);
+      if (marksIndex != -1) {
+        internalMarks[marksIndex]['isLocked'] = true;
+        internalMarks[marksIndex]['updatedAt'] = DateTime.now().toIso8601String();
+        await prefs.setString(_internalMarksKey, jsonEncode(internalMarks));
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
+    return false;
+  }
+
+  static Future<bool> updateInternalMarks(String marksId, Map<String, dynamic> updates) async {
+    final prefs = await SharedPreferences.getInstance();
+    final internalMarksJson = prefs.getString(_internalMarksKey) ?? '[]';
+    final internalMarks = jsonDecode(internalMarksJson) as List;
+    
+    try {
+      final marksIndex = internalMarks.indexWhere((mark) => mark['id'] == marksId);
+      if (marksIndex != -1) {
+        internalMarks[marksIndex].addAll(updates);
+        internalMarks[marksIndex]['updatedAt'] = DateTime.now().toIso8601String();
+        await prefs.setString(_internalMarksKey, jsonEncode(internalMarks));
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
+    return false;
+  }
+
+  // Faculty role check
+  static Future<bool> isHod(String facultyId) async {
+    final faculty = await getFaculty(facultyId);
+    return faculty?['role'] == 'hod';
   }
 
   // Reset database (clear and reinitialize)
@@ -622,5 +861,12 @@ class DatabaseService {
     await clearAllData();
     await initialize();
     print('Database: Reset complete');
+  }
+
+  // Force reset with new faculty data
+  static Future<void> forceResetWithNewFaculty() async {
+    await clearAllData();
+    await initialize();
+    print('Database: Force reset with new faculty data complete');
   }
 }

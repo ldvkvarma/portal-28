@@ -63,18 +63,19 @@ class _AuthWrapperState extends State<AuthWrapper> {
   }
 
   Future<void> _checkLoginStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-    final userType = prefs.getString('userType') ?? '';
+    // Wait for AuthService to initialize
+    await Future.delayed(const Duration(milliseconds: 100));
+    
+    final authService = AuthService();
     
     setState(() {
       _isLoading = false;
     });
     
-    if (isLoggedIn && userType.isNotEmpty) {
+    if (authService.isLoggedIn && authService.currentUserType != null) {
       if (mounted) {
         Widget dashboard;
-        switch (userType) {
+        switch (authService.currentUserType) {
           case 'student':
             dashboard = const StudentDashboard();
             break;

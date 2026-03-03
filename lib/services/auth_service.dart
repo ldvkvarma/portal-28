@@ -81,6 +81,22 @@ class AuthService {
   // Check if user is faculty
   bool get isFaculty => _currentUserType == 'faculty';
 
+  // Check if user is HoD
+  bool get isHod {
+    if (_currentUserType == 'faculty' && _currentUserData != null) {
+      return _currentUserData!['role'] == 'hod';
+    }
+    return false;
+  }
+
+  // Check if user is normal faculty
+  bool get isNormalFaculty {
+    if (_currentUserType == 'faculty' && _currentUserData != null) {
+      return _currentUserData!['role'] == 'normal';
+    }
+    return false;
+  }
+
   // Check if user is principal
   bool get isPrincipal => _currentUserType == 'principal';
 

@@ -101,6 +101,43 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> _resetDatabase() async {
+    setState(() => _isLoading = true);
+    
+    try {
+      await DatabaseService.forceResetWithNewFaculty();
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Database reset successfully! New faculty users added.',
+              style: GoogleFonts.inter(),
+            ),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Database reset failed. Please try again.',
+              style: GoogleFonts.inter(),
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,22 +154,22 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: SafeArea(
           child: SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height - 
-                           MediaQuery.of(context).padding.top - 
-                           MediaQuery.of(context).padding.bottom,
-              ),
-              child: IntrinsicHeight(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height - 
+                             MediaQuery.of(context).padding.top - 
+                             MediaQuery.of(context).padding.bottom,
+                ),
+                child: IntrinsicHeight(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // College Banner
                       Container(
                         width: double.infinity,
-                        height: 120,
+                        height: 150,
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.95),
                           borderRadius: const BorderRadius.only(
@@ -140,28 +177,36 @@ class _LoginScreenState extends State<LoginScreen> {
                             bottomRight: Radius.circular(20),
                           ),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.school,
-                                size: 40,
-                                color: Color(0xFF667eea),
+                              // PSCMR Logo
+                              Image.asset(
+                                'assets/images/pscmr-logo.png',
+                                height: 60,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Icon(
+                                    Icons.school,
+                                    size: 60,
+                                    color: Color(0xFF667eea),
+                                  );
+                                },
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Text(
-                                'COLLEGE PORTAL',
+                                'POTTISRIRAMULU CHALUVADI MALLIKARJUNA RAO COLLEGE OF ENGINEERING AND TECHNOLOGY',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: MediaQuery.of(context).size.width * 0.020,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xFF667eea),
                                 ),
+                                textAlign: TextAlign.center,
                               ),
                               Text(
-                                'Complete Management System',
+                                'PORTAL',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: MediaQuery.of(context).size.width * 0.015,
                                   color: Color(0xFF764ba2),
                                 ),
                               ),
@@ -340,6 +385,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               const SizedBox(height: 10),
+                              
+                              // Temporary Reset Button
+                              SizedBox(
+                                width: double.infinity,
+                                height: 40,
+                                child: TextButton(
+                                  onPressed: _resetDatabase,
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.red.withValues(alpha: 0.1),
+                                    foregroundColor: Colors.red,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Reset Database (New Faculty)',
+                                    style: GoogleFonts.inter(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               
                             ],
                           ),

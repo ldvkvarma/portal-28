@@ -58,7 +58,6 @@ class _ProfileSectionState extends State<ProfileSection> {
 
       try {
         final updates = {
-          'phone': _phoneController.text,
           'email': _emailController.text,
           'address': _addressController.text,
         };
@@ -263,10 +262,7 @@ class _ProfileSectionState extends State<ProfileSection> {
               
               // Contact Details
               _buildSectionCard('Contact Details', [
-                if (_isEditing)
-                  _buildEditableRow('Phone', _phoneController, TextInputType.phone)
-                else
-                  _buildDetailRow('Phone', student['phone']),
+                _buildDetailRow('Phone', student['phone']),
                 if (_isEditing)
                   _buildEditableRow('Email', _emailController, TextInputType.emailAddress)
                 else
