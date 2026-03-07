@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
 
-class PlacementDashboard extends StatelessWidget {
+class PlacementDashboard extends StatefulWidget {
   const PlacementDashboard({super.key});
 
+  @override
+  State<PlacementDashboard> createState() => _PlacementDashboardState();
+}
+
+class _PlacementDashboardState extends State<PlacementDashboard> {
   Future<void> _logout() async {
     await AuthService().logout();
-    // Navigate back to login
+    if (mounted) {
+      Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+    }
   }
 
   @override

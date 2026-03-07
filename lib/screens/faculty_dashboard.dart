@@ -48,7 +48,7 @@ class _FacultyDashboardState extends State<FacultyDashboard> {
   Future<void> _logout() async {
     await AuthService().logout();
     if (mounted) {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
     }
   }
 

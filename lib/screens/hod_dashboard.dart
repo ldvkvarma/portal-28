@@ -50,7 +50,7 @@ class _HoDDashboardState extends State<HoDDashboard> {
   Future<void> _logout() async {
     await AuthService().logout();
     if (mounted) {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
     }
   }
 

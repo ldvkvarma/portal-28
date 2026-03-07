@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
 
-class PrincipalDashboard extends StatelessWidget {
+class PrincipalDashboard extends StatefulWidget {
   const PrincipalDashboard({super.key});
 
+  @override
+  State<PrincipalDashboard> createState() => _PrincipalDashboardState();
+}
+
+class _PrincipalDashboardState extends State<PrincipalDashboard> {
   Future<void> _logout() async {
     await AuthService().logout();
-    // Navigate back to login
+    if (mounted) {
+      Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+    }
   }
 
   @override
