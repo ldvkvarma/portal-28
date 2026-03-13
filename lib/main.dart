@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/login_test_screen.dart';
 import 'screens/student_dashboard.dart';
 import 'screens/faculty_dashboard.dart';
 import 'screens/principal_dashboard.dart';
@@ -15,11 +14,6 @@ import 'services/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Initialize Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   
   // Initialize services
   await DatabaseService.initialize();
@@ -111,6 +105,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
     if (_isLoading) {
       return const SplashScreen();
     }
-    return const LoginScreen();
+    return const LoginScreen(); // Back to normal login screen
   }
 }

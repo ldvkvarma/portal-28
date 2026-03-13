@@ -393,99 +393,32 @@ class _StudentDashboardState extends State<StudentDashboard> {
 
             // Main Content
             Expanded(
-              child: isSmall
-                  ? Column(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.all(10),
-                            padding: const EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.95),
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.1),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: SingleChildScrollView(
-                              child: _buildSelectedSection(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Row(
-                      children: [
-                        // Side Navigation
-                        Container(
-                          width: 250,
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.95),
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.1),
-                                blurRadius: 8,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Text(
-                                  'STUDENT MENU',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black87,
-                                    letterSpacing: 1,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(height: 20),
-                                
-                                // Menu Items
-                                _buildMenuItem('Profile', 'profile', Icons.person),
-                                _buildMenuItem('Attendance', 'attendance', Icons.event_available),
-                                _buildMenuItem('Marks', 'marks', Icons.grade),
-                                _buildMenuItem('Remarks', 'remarks', Icons.comment),
-                                _buildMenuItem('Certificates', 'certificates', Icons.card_membership),
-                                _buildMenuItem('Job Opportunities', 'jobs', Icons.work),
-                              ],
-                            ),
-                          ),
-                        ),
-                        
-                        // Content Area
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.all(10),
-                            padding: const EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.95),
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.1),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: SingleChildScrollView(
-                              child: _buildSelectedSection(),
-                            ),
-                          ),
-                        ),
-                      ],
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.95),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.1),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
                     ),
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: 0,
+                      maxHeight: MediaQuery.of(context).size.height - 300, // Prevent overflow
+                    ),
+                    child: IntrinsicHeight(
+                      child: _buildSelectedSection(),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

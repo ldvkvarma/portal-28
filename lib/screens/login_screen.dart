@@ -162,8 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                              MediaQuery.of(context).padding.top - 
                              MediaQuery.of(context).padding.bottom,
                 ),
-                child: IntrinsicHeight(
-                  child: Column(
+                child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // College Banner
@@ -415,7 +414,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       
                     ],
-                  ),
                 ),
               ),
             ),
